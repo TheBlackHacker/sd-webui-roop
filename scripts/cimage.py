@@ -23,20 +23,20 @@ def numpy_to_pil(images: np.ndarray) -> List[Image.Image]:
 
 
 def check_image(x_image: np.ndarray) -> Tuple[np.ndarray, List[bool]]:
-    global safety_feature_extractor, safety_checker
+    #global safety_feature_extractor, safety_checker
 
-    if safety_feature_extractor is None:
-        safety_feature_extractor = AutoFeatureExtractor.from_pretrained(safety_model_id)
-        safety_checker = StableDiffusionSafetyChecker.from_pretrained(safety_model_id)
+    #if safety_feature_extractor is None:
+    #    safety_feature_extractor = AutoFeatureExtractor.from_pretrained(safety_model_id)
+    #    safety_checker = StableDiffusionSafetyChecker.from_pretrained(safety_model_id)
 
-    safety_checker_input = safety_feature_extractor(
-        images=numpy_to_pil(x_image), return_tensors="pt"
-    )
-    x_checked_image, hs = safety_checker(
-        images=x_image, clip_input=safety_checker_input.pixel_values
-    )
+    #safety_checker_input = safety_feature_extractor(
+    #    images=numpy_to_pil(x_image), return_tensors="pt"
+    #)
+    #x_checked_image, hs = safety_checker(
+    #    images=x_image, clip_input=safety_checker_input.pixel_values
+    #)
 
-    return x_checked_image, [False] * len(x_checked_image)
+    return x_image, [False] * len(x_checked_image)
     #return x_checked_image, hs
 
 
