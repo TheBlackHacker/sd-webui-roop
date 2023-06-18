@@ -36,7 +36,7 @@ def check_image(x_image: np.ndarray) -> Tuple[np.ndarray, List[bool]]:
     #    images=x_image, clip_input=safety_checker_input.pixel_values
     #)
 
-    return x_image, [False] * len(x_checked_image)
+    return x_image, [False] * len(x_image)
     #return x_checked_image, hs
 
 
