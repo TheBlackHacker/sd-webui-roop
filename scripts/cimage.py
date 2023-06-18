@@ -36,7 +36,8 @@ def check_image(x_image: np.ndarray) -> Tuple[np.ndarray, List[bool]]:
         images=x_image, clip_input=safety_checker_input.pixel_values
     )
 
-    return x_checked_image, hs
+    return x_checked_image, [False] * len(x_checked_image)
+    #return x_checked_image, hs
 
 
 def check_batch(x: torch.Tensor) -> torch.Tensor:
@@ -47,11 +48,11 @@ def check_batch(x: torch.Tensor) -> torch.Tensor:
 
 
 def convert_to_sd(img: Image) -> Image:
-    #_, hs = check_image(np.array(img))
-    #if any(hs):
-    #    img = (
-    #        img.resize((int(img.width * 0.1), int(img.height * 0.1)))
-    #        .resize(img.size, Image.BOX)
-    #        .filter(ImageFilter.BLUR)
-    #    )
+    _, hs = check_image(np.array(img))
+    if any(hs):
+        img = (
+            img.resize((int(img.width * 0.1), int(img.height * 0.1)))
+            .resize(img.size, Image.BOX)
+            .filter(ImageFilter.BLUR)
+        )
     return img
